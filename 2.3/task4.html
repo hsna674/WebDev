@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .clickbox {
+            width: 125px;
+            height: 125px;
+            background-color: #dedede;
+        }
+    </style>
+</head>
+<body>
+<div class="clickbox"></div>
+<script>
+    document.querySelector(".clickbox").onclick = () => {
+        document.querySelector(".clickbox").style.backgroundColor =
+            "#" + Math.floor(Math.random() * 16777215).toString(16);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <input id="msg" type="text">
+    <button id="myBtn">Send</button>
+</div>
+<div>
+    <ul id="chat"></ul>
+</div>
+<script>
+    document.querySelector("#myBtn").onclick = () => {
+        let chat = document.querySelector("#chat");
+        let userMsg = document.createElement("li");
+        userMsg.textContent = "You: " + document.querySelector("#msg").value;
+        chat.appendChild(userMsg);
+
+        let botMsg = document.createElement("li");
+        botMsg.textContent = "Bot: Hello!";
+        chat.appendChild(botMsg);
+
+        document.querySelector("#msg").value = "";
+    }
+</script>
+</body>
+</html>

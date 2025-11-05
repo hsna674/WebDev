@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+}
+
+.inner {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.d1 {
+    background: red;
+}
+
+.d2 {
+    background: green;
+}
+
+.d3 {
+    background: blue;
+}

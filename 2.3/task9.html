@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<p id="text">Change size</p>
+<button id="inc">+</button>
+<button id="dec">-</button>
+<button id="color">Color</button>
+<script>
+    let size = 16;
+    document.querySelector("#inc").onclick = () => {
+        size += 2;
+        document.querySelector("#text").style.fontSize = size + "px";
+    }
+    document.querySelector("#dec").onclick = () => {
+        size -= 2;
+        document.querySelector("#text").style.fontSize = size + "px";
+    }
+    document.querySelector("#color").onclick = () => {
+        document.querySelector("#text").style.color =
+            "#" + Math.floor(Math.random() * 16777215).toString(16);
+    }
+</script>
+</body>
+</html>

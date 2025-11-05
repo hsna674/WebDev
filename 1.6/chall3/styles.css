@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+}
+
+.left {
+    background-color: lightblue;
+}
+
+.center {
+    background-color: lightcoral;
+}
+
+.right {
+    background-color: lightgreen;
+}

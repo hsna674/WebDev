@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wordle Helper</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .board {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tile {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #888;
+            margin: 3px;
+            line-height: 40px;
+            font-size: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .grey {
+            background: #777;
+            color: white;
+        }
+
+        .yellow {
+            background: gold;
+            color: black;
+        }
+
+        .green {
+            background: green;
+            color: white;
+        }
+
+        #results {
+            margin-top: 30px;
+            max-width: 400px;
+            margin: auto;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h2>Wordle Word Helper</h2>
+
+<div class="board" id="board"></div>
+<button id="check">Find Words</button>
+
+<div id="results"></div>
+
+<script>
+    const board = document.getElementById("board");
+    const results = document.getElementById("results");
+    const ROW_LEN = 5;
+    let letters = Array(ROW_LEN).fill("");
+    let colors = Array(ROW_LEN).fill("grey");
+
+    for (let i = 0; i < ROW_LEN; i++) {
+        const div = document.createElement("div");
+        div.classList.add("tile", "grey");
+        div.dataset.index = i;
+        div.onclick = () => cycleColor(i);
+        board.appendChild(div);
+    }
+
+    window.addEventListener("keydown", (e) => {
+        if (/^[a-zA-Z]$/.test(e.key)) {
+            for (let i = 0; i < ROW_LEN; i++) {
+                if (letters[i] === "") {
+                    letters[i] = e.key.toLowerCase();
+                    board.children[i].textContent = e.key.toUpperCase();
+                    break;
+                }
+            }
+        } else if (e.key === "Backspace") {
+            for (let i = ROW_LEN - 1; i >= 0; i--) {
+                if (letters[i] !== "") {
+                    letters[i] = "";
+                    board.children[i].textContent = "";
+                    break;
+                }
+            }
+        }
+    });
+
+    function cycleColor(i) {
+        const order = ["grey", "yellow", "green"];
+        let current = colors[i];
+        let next = order[(order.indexOf(current) + 1) % 3];
+        colors[i] = next;
+        board.children[i].className = "tile " + next;
+    }
+
+    document.getElementById("check").onclick = async () => {
+        const greenPattern = letters.map((l, i) => colors[i] === "green" ? l : "_").join("");
+        const yellowLetters = letters.filter((l, i) => colors[i] === "yellow").join(",");
+        const greyLetters = letters.filter((l, i) => colors[i] === "grey" && l).join(",");
+
+        const url = `/getwords?green=${greenPattern}&yellow=${yellowLetters}&grey=${greyLetters}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        results.innerHTML = `<h3>Valid Words (${data.valid_words.length})</h3><ul>` +
+            data.valid_words.map(w => `<li>${w}</li>`).join('') + "</ul>";
+    };
+</script>
+</body>
+</html>

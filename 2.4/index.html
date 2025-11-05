@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cipher Tool</title>
+    <style>
+        .mapping {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 520px;
+            margin-top: 10px;
+        }
+
+        .tile {
+            width: 40px;
+            margin: 2px;
+            padding: 4px;
+            border: 1px solid #000;
+            text-align: center;
+            font-family: monospace;
+        }
+
+        textarea {
+            width: 500px;
+            height: 100px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cipher Tool</h1>
+    <label>Choose Cipher:
+        <select id="cipherType">
+            <option value="caesar">Caesar</option>
+            <option value="substitution">Substitution</option>
+        </select>
+    </label>
+    <label>Shift: <input id="shift" type="number" value="3"></label>
+    <br><br>
+
+    <button id="genBtn">Generate Cipher</button>
+    <input id="loadInput" type="text">
+    <button id="loadBtn">Load Cipher</button>
+    <span id="error" style="color:red"></span>
+
+    <div id="mapping" class="mapping"></div>
+
+    <h3>Encrypt / Decrypt</h3>
+    <textarea id="plain" placeholder="Enter text here"></textarea><br>
+    <button id="encBtn">Encrypt</button>
+    <button id="decBtn">Decrypt</button><br>
+    <textarea id="output" readonly></textarea>
+
+    <script>
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let currentCipher = {};
+
+        function updateDisplay() {
+            let div = document.querySelector("#mapping");
+            div.innerHTML = "";
+            for (let ch of alphabet) {
+                let tile = document.createElement("div");
+                tile.className = "tile";
+                tile.textContent = ch + "→" + currentCipher[ch];
+                div.appendChild(tile);
+            }
+        }
+
+        function generateCipher() {
+            if (document.querySelector("#cipherType").value === "caesar") {
+                let shift = parseInt(document.querySelector("#shift").value) || 0;
+                currentCipher = {};
+                for (let i = 0; i < 26; i++) {
+                    let mapped = alphabet[(i + shift) % 26];
+                    currentCipher[alphabet[i]] = mapped;
+                }
+            } else {
+                let letters = alphabet.split("");
+                for (let i = letters.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [letters[i], letters[j]] = [letters[j], letters[i]];
+                }
+                currentCipher = {};
+                for (let i = 0; i < 26; i++) {
+                    currentCipher[alphabet[i]] = letters[i];
+                }
+            }
+            updateDisplay();
+        }
+
+        function loadCipher() {
+            let str = document.querySelector("#loadInput").value.toUpperCase();
+            let error = document.querySelector("#error");
+            if (str.length !== 26 || new Set(str).size !== 26 || /[^A-Z]/.test(str)) {
+                error.textContent = "Invalid cipher mapping";
+                return;
+            }
+            error.textContent = "";
+            currentCipher = {};
+            for (let i = 0; i < 26; i++) {
+                currentCipher[alphabet[i]] = str[i];
+            }
+            updateDisplay();
+        }
+
+        function transform(text, encrypt = true) {
+            let result = "";
+            text = text.toUpperCase();
+            if (encrypt) {
+                for (let ch of text) {
+                    result += currentCipher[ch] || ch;
+                }
+            } else {
+                let inv = {};
+                for (let k in currentCipher) inv[currentCipher[k]] = k;
+                for (let ch of text) {
+                    result += inv[ch] || ch;
+                }
+            }
+            return result;
+        }
+
+        document.querySelector("#genBtn").onclick = generateCipher;
+        document.querySelector("#loadBtn").onclick = loadCipher;
+        document.querySelector("#encBtn").onclick = () => {
+            document.querySelector("#output").value =
+                transform(document.querySelector("#plain").value, true);
+        };
+        document.querySelector("#decBtn").onclick = () => {
+            document.querySelector("#output").value =
+                transform(document.querySelector("#plain").value, false);
+        };
+
+        generateCipher();
+    </script>
+</body>
+</html>

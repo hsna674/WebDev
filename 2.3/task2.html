@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+</div>
+<div>
+    <span id="time">0</span>
+</div>
+<script>
+    let timer = null;
+    let count = 0;
+    document.querySelector("#start").onclick = () => {
+        if (timer === null) {
+            timer = setInterval(() => {
+                count++;
+                document.querySelector("#time").textContent = count;
+            }, 1000);
+        }
+    }
+    document.querySelector("#stop").onclick = () => {
+        clearInterval(timer);
+        timer = null;
+    }
+    document.querySelector("#reset").onclick = () => {
+        clearInterval(timer);
+        timer = null;
+        count = 0;
+        document.querySelector("#time").textContent = count;
+    }
+</script>
+</body>
+</html>

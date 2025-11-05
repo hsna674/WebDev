@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <input id="task" type="text">
+    <button id="myBtn">Press Me</button>
+</div>
+<div>
+    <p>My To-Do List</p>
+    <ul id="list"></ul>
+</div>
+<script>
+    document.querySelector("#myBtn").onclick = (ev) => {
+        let my_list = document.querySelector("#list");
+        let item = document.createElement("li");
+        item.textContent = document.querySelector("#task").value;
+        my_list.appendChild(item);
+        document.querySelector("#task").value = "";
+    }
+</script>
+</body>
+</html>

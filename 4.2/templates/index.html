@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+        .schedule_container {
+            width: 50vh;
+            margin: auto;
+        }
+
+        .image_container > img {
+            width: 50vh;
+        }
+
+        .display_container {
+            display: block;
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            overflow: auto;
+        }
+
+        .lefty {
+            float: left;
+        }
+
+        .righty {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+
+<h3>Schedule Viewer</h3>
+
+<div class="schedule_container">
+    <input type="date" id="cal_picker">
+    <div class="display_container">
+        <div class="lefty" id="schedule_disp">
+            Choose a date to see schedule.
+        </div>
+    </div>
+</div>
+
+<script>
+    const scheduleFetch = async () => {
+        const date = document.querySelector('#cal_picker').value;
+        const display = document.getElementById("schedule_disp");
+
+        if (!date) {
+            display.textContent = "Please select a valid date.";
+            return;
+        }
+
+        try {
+            const response = await fetch(`/get_schedule_from_ion/${date}`);
+            const data = await response.json();
+
+            display.innerHTML = "";
+
+            if (data.error) {
+                display.textContent = "Error: " + data.error;
+                return;
+            }
+
+            if (data.day_type && data.day_type.blocks) {
+                data.day_type.blocks.forEach(block => {
+                    const div = document.createElement("div");
+                    const start = block.start;
+                    const end = block.end;
+                    div.textContent = `${block.name}${start && end ? ` (${start} - ${end})` : ""}`;
+                    display.appendChild(div);
+                });
+            } else {
+                display.textContent = "No schedule data for that date.";
+            }
+
+        } catch (err) {
+            display.textContent = "Error fetching schedule.";
+        }
+    };
+
+    document.querySelector('#cal_picker').onchange = scheduleFetch;
+</script>
+</body>
+</html>

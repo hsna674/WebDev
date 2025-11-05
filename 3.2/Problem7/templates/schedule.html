@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Schedule Viewer</h1>
+{% for day in schedule.results %}
+<h2>{{ day.date }} - {{ day.day_type.name }}</h2>
+<div style="display: flex; gap: 10px;">
+    {% for block in day.day_type.blocks %}
+    <div style="border:1px solid black; padding:10px;">
+        <strong>{{ block.name }}</strong><br>
+        {{ block.start }} - {{ block.end }}
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+</body>
+</html>

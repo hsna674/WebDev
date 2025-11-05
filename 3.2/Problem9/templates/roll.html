@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Rolling {{ dice }} dice with {{ sides }} sides</h1>
+<div style="display: flex; gap: 10px;">
+    {% for roll in rolls %}
+    <div style="border:1px solid black; padding:10px; width:50px; text-align:center;">
+        {{ roll }}
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

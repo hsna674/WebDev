@@ -1,0 +1,26 @@
+body {
+    font-family: sans-serif;
+    padding: 16px;
+}
+
+label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 14px;
+}
+
+input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    padding: 10px 14px;
+    border: none;
+    background: #2086cd;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+}

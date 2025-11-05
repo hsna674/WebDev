@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Voting Site</h1>
+<p>Upvotes: <span id="upvote-count">0</span></p>
+<p>Downvotes: <span id="downvote-count">0</span></p>
+
+<button id="upvote-btn">Upvote</button>
+<button id="downvote-btn">Downvote</button>
+
+<script>
+    async function updateCounts() {
+        const res = await fetch('/counts');
+        const data = await res.json();
+        document.getElementById('upvote-count').textContent = data.upvotes;
+        document.getElementById('downvote-count').textContent = data.downvotes;
+    }
+
+    document.getElementById('upvote-btn').onclick = async () => {
+        const res = await fetch('/upvote');
+        const data = await res.json();
+        document.getElementById('upvote-count').textContent = data.upvotes;
+        document.getElementById('downvote-count').textContent = data.downvotes;
+    };
+
+    document.getElementById('downvote-btn').onclick = async () => {
+        const res = await fetch('/downvote');
+        const data = await res.json();
+        document.getElementById('upvote-count').textContent = data.upvotes;
+        document.getElementById('downvote-count').textContent = data.downvotes;
+    };
+
+    updateCounts();
+</script>
+</body>
+</html>

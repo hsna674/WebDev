@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Server Log</h1>
+<table border="1">
+    <tr>
+        <th>IP</th>
+        <th>User Agent</th>
+        <th>Time</th>
+        <th>Seconds Since Last</th>
+    </tr>
+    {% for entry in log %}
+    <tr>
+        <td>{{ entry.ip }}</td>
+        <td>{{ entry.user_agent }}</td>
+        <td>{{ entry.time }}</td>
+        <td>{{ entry.since_last }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

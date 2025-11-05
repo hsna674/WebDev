@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div>
+    <textarea id="text" rows="6" cols="50"></textarea>
+    <p>Word Count: <span id="count">0</span></p>
+</div>
+<script>
+    document.querySelector("#text").oninput = () => {
+        let words = document.querySelector("#text").value.trim().split(/\s+/);
+        let count = words.filter(w => w.length > 0).length;
+        document.querySelector("#count").textContent = count;
+    }
+</script>
+</body>
+</html>

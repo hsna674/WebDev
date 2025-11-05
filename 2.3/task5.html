@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 125px);
+            grid-template-rows: repeat(3, 125px);
+            gap: 10px;
+        }
+
+        .clickbox {
+            width: 125px;
+            height: 125px;
+            background-color: #dedede;
+        }
+    </style>
+</head>
+<body>
+<div class="grid">
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+    <div class="clickbox"></div>
+</div>
+<script>
+    let boxes = Array.from(document.querySelectorAll(".clickbox"))
+    boxes.forEach(box => {
+        box.onclick = () => {
+            box.style.backgroundColor =
+                "#" + Math.floor(Math.random() * 16777215).toString(16);
+        }
+    });
+</script>
+</body>
+</html>

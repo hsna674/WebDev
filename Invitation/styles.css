@@ -1,0 +1,65 @@
+body.mood-elegant.aesthetic-government-mission {
+    background-color: #f5f7fb;
+    color: #111111;
+    font-family: "Georgia", "Times New Roman", serif;
+}
+
+h1 {
+    font-size: 32px;
+    color: #0b3d91;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    font-size: 16px;
+    color: #2f3b52;
+}
+
+p {
+    margin: 0 0 8px;
+}
+
+a {
+    color: #0b3d91;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #072e6f;
+    text-decoration: underline;
+}
+
+.card {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 16px;
+    margin: 16px;
+}
+
+.tagline {
+    font-style: italic;
+    text-align: center;
+}
+
+.note {
+    background-color: #eef2ff;
+    border-left: 4px solid #0b3d91;
+    padding: 8px;
+}
+
+#event-title {
+    letter-spacing: 1px;
+}
+
+#details {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+#cta {
+    text-align: center;
+    margin-top: 12px;
+}
