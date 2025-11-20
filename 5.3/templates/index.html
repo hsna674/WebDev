@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Welcome</h1>
+{% if session.get('user') %}
+<p>Hello {{ session.get('user') }}</p>
+<button onclick="document.getElementById('logoutModal').style.display='block'">Logout</button>
+{% else %}
+<button onclick="document.getElementById('loginModal').style.display='block'">Login</button>
+{% endif %}
+
+<div id="loginModal" style="display:none">
+    <form method="POST" action="/login">
+        Username: <input name="username">
+        Password: <input type="password" name="password">
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<div id="logoutModal" style="display:none">
+    <p>Are you sure you want to log out, {{ session.get('user') }}?</p>
+    <a href="/logout">Yes</a>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("success") === "false") alert("Login incorrect");
+    if (urlParams.get("auth_error") === "true") alert("You need to log in first");
+    if (urlParams.get("logout") === "true") alert("Logged out successfully");
+</script>
+</body>
+</html>

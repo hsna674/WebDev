@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visit Counter</title>
+    <script>
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+    <style>
+        #modal {
+            display: none;
+            position: fixed;
+            background: white;
+            border: 1px solid black;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome!</h1>
+<p>Total Visits: {{ user_data.visits }}</p>
+<p>Cars: {{ user_data.cars }}</p>
+<p>Cows: {{ user_data.cows }}</p>
+<a href="/buycar">Buy Car</a><br>
+<a href="/buycow">Buy Cow</a><br>
+<a href="/clearinventory">Clear Inventory</a><br><br>
+<button onclick="openModal()">Show Inventory</button>
+<div id="modal">
+    <p>Inventory Summary</p>
+    <p>Cars: {{ user_data.cars }}</p>
+    <p>Cows: {{ user_data.cows }}</p>
+    <button onclick="closeModal()">Close</button>
+</div>
+</body>
+</html>
